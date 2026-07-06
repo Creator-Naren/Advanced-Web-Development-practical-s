@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Records Management (Backup)</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+.container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; } th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+
+th { background-color: #007bff; color: white; }
+.btn-add { background: #28a745; color: white; padding: 10px; border: none; cursor: pointer; }
+.btn-delete { background: #dc3545; color: white; padding: 5px; border: none; cursor: pointer; }
+</style>
+</head>
+<body ng-app="studentApp" ng-controller="studentCtrl">
+
+<div class="container">
+<h2>Manage Student Records</h2>
+
+<fieldset>
+<legend>Add New Student</legend>
+<input type="text" ng-model="newStudent.name" placeholder="Enter Name">
+<input type="number" ng-model="newStudent.roll" placeholder="Enter Roll No">
+<input type="text" ng-model="newStudent.dept" placeholder="Enter Department">
+<button class="btn-add" ng-click="addRecord()">Add Student</button>
+</fieldset>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Roll No</th>
+<th>Department</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="student in students">
+<td>{{ student.name }}</td>
+<td>{{ student.roll }}</td>
+<td>{{ student.dept }}</td>
+<td>
+
+<button class="btn-delete" ng-click="deleteRecord($index)">Remove</button>
+</td>
+</tr>
+</tbody>
+</table>
+<p ng-if="students.length == 0">No records found. Add a student to begin.</p>
+</div>
+
+<script>
+var app = angular.module('studentApp', []); app.controller('studentCtrl', function($scope) {
+// Initial Data
+$scope.students = [
+{ name: "Narendra Borhade", roll: 9, dept: "MCA" },
+{ name: "Vaibhav Bhor", roll: 7, dept: "MCA" },
+{ name: "Vaibhav singh", roll: 33, dept: "BCA" }
+];
+
+// Function to Add Record
+$scope.addRecord = function() {
+if($scope.newStudent.name && $scope.newStudent.roll) {
+$scope.students.push(angular.copy($scope.newStudent));
+// Clear input fields
+$scope.newStudent = {};
+} else {
+alert("Please fill in Name and Roll Number.");
+}
+};
+
+// Function to Delete Record
+$scope.deleteRecord = function(index) {
+if(confirm("Are you sure you want to delete this record?")) {
+$scope.students.splice(index, 1);
+}
+
+};
+});
+</script>
+
+</body>
+</html>

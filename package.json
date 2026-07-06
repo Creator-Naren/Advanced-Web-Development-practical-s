@@ -1,0 +1,16 @@
+{
+  "name": "advanced-web-development-practicals",
+  "version": "1.0.0",
+  "description": "Helper package for serving AWD practicals and a tiny prototyping API.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "NODE_ENV=development node server.js"
+  },
+  "author": "Creator-Naren",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

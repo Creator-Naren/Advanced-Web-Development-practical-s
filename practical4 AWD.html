@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html lang="en" ng-app="squareApp"> 
+<head> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AngularJS Square Service</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
+</head> 
+<body ng-controller="squareCtrl">
+ 
+    <h2>Assignment 4: Square Calculation using Service</h2> 
+    <hr> 
+ 
+    <label>Enter a Number:</label> 
+    <input type="number" ng-model="inputNum" placeholder="e.g. 5"> 
+     
+    <button ng-click="findSquare()">Calculate Square</button> 
+ 
+    <div class="result-container"> 
+        <strong ng-if="result">The Square of {{inputNum}} is: {{result}}</strong> 
+        <p>Made by Narendra 09.</p>
+    </div> 
+ 
+    <script> 
+        // 1. Define the Application Module 
+        var app = angular.module('squareApp', []); 
+ 
+        // 2. Define the Custom Service 
+        app.service('calcService', function() { 
+            this.square = function(x) { 
+                return x * x; 
+            }; 
+        }); 
+ 
+        // 3. Define the Controller and Inject the Service 
+        app.controller('squareCtrl', function($scope, calcService) { 
+            $scope.findSquare = function() { 
+                if ($scope.inputNum !== undefined) { 
+                    // Call the square function from the injected service 
+                    $scope.result = calcService.square($scope.inputNum); 
+                } else { 
+                    alert("Please enter a valid number"); 
+                } 
+            }; 
+        }); 
+    </script> 
+ 
+</body> 
+</html>

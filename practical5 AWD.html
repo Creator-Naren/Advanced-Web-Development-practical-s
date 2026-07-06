@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html ng-app="calcApp" lang="en"> 
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Service - Add/Sub</title> 
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
+    <style> 
+        body { font-family: Arial, sans-serif; padding: 20px; } 
+        .container { border: 1px solid #ccc; padding: 20px; width: 300px; border-radius: 8px; } 
+        input { margin-bottom: 10px; width: 90%; padding: 5px; } 
+        button { margin-right: 5px; padding: 5px 15px; cursor: pointer; } 
+    </style> 
+</head> 
+<body ng-controller="calcCtrl"> 
+ 
+<div class="container"> 
+    <h3>Arithmetic Service</h3> 
+     
+    <label>Number 1:</label><br> 
+    <input type="number" ng-model="num1" placeholder="Enter first number"><br> 
+     
+    <label>Number 2:</label><br> 
+    <input type="number" ng-model="num2" placeholder="Enter second number"><br> 
+     
+    <button ng-click="doAddition()">Add</button> 
+    <button ng-click="doSubtraction()">Sub</button> 
+     
+    <hr> 
+    <h4>Result: {{ result }}</h4> 
+    <p>Made by Narendra 09.</p>
+</div> 
+ 
+<script> 
+    // 1. Define the Module 
+    var app = angular.module('calcApp', []); 
+ 
+    // 2. Define the Service 
+    app.service('MathService', function() { 
+        this.add = function(a, b) { 
+            return (parseFloat(a) || 0) + (parseFloat(b) || 0); 
+        }; 
+         
+        this.subtract = function(a, b) { 
+            return (parseFloat(a) || 0) - (parseFloat(b) || 0); 
+        }; 
+    }); 
+ 
+    // 3. Define the Controller and Inject the Service 
+    app.controller('calcCtrl', function($scope, MathService) { 
+        $scope.num1 = 0; 
+        $scope.num2 = 0; 
+        $scope.result = 0; 
+ 
+        $scope.doAddition = function() { 
+            $scope.result = MathService.add($scope.num1, $scope.num2); 
+        }; 
+ 
+        $scope.doSubtraction = function() { 
+            $scope.result = MathService.subtract($scope.num1, $scope.num2); 
+        }; 
+    }); 
+</script> 
+ 
+</body> 
+</html>

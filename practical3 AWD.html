@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Prime Filter</title> 
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
+</head> 
+<body ng-app="myApp" ng-controller="myCtrl"> 
+ 
+    <div class="prime-checker-container"> 
+        <h2>Prime Checker</h2> 
+        <label>Enter a Number:</label> 
+        <input type="number" ng-model="userNumber" placeholder="Type a number..."> 
+         
+        <hr> 
+         
+        <p><strong>Result:</strong> {{ userNumber | isPrime }}</p> 
+        <p>Made By Narendra 09</p>
+    </div> 
+ 
+    <script> 
+        var app = angular.module('myApp', []); 
+ 
+        // Custom filter logic 
+        app.filter('isPrime', function() { 
+            return function(input) { 
+                if (!input || input < 2) { 
+                    return "Enter a number greater than 1"; 
+                } 
+ 
+                var isPrime = true; 
+                // Standard prime check algorithm 
+                for (var i = 2; i <= Math.sqrt(input); i++) { 
+                    if (input % i === 0) { 
+                        isPrime = false; 
+                        break; 
+                    } 
+                } 
+ 
+                return isPrime ? input + " is a Prime Number" : input + " is NOT a Prime Number"; 
+            }; 
+        }); 
+ 
+        app.controller('myCtrl', function($scope) { 
+            // Controller can remain empty for this logic as the filter handles the processing 
+        }); 
+    </script> 
+ 
+</body> 
+</html>

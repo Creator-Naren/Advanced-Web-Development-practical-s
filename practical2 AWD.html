@@ -1,0 +1,35 @@
+HTML 
+<div ng-app="orderApp" ng-controller="orderCtrl"> 
+    <h2>Product Order Form</h2> 
+    <div ng-repeat="item in products"> 
+        {{item.name}} (Price: {{item.price}}):  
+        <input type="number" ng-model="item.quantity" placeholder="Enter quantity" title="Item quantity"> 
+    </div> 
+    <hr> 
+    <p>Bill Amount: {{billAmount | number:2}}</p> 
+    <p>GST (18%): {{gst | number:2}}</p> 
+    <p><strong>Total Amount: {{total | number:2}}</strong></p> 
+    <p>Made By Narendra 09</p>
+</div> 
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script>
+    var app = angular.module('orderApp', []); 
+    app.controller('orderCtrl', function($scope) { 
+        $scope.products = [ 
+            {name: 'Laptop', price: 50000, quantity: 0}, 
+            {name: 'Mouse', price: 500, quantity: 0}, 
+            {name: 'Keyboard', price: 1200, quantity: 0}, 
+            {name: 'Monitor', price: 8000, quantity: 0}, 
+            {name: 'USB Cable', price: 300, quantity: 0} 
+        ]; 
+        $scope.calculate = function() { 
+            $scope.billAmount = 0; 
+            $scope.products.forEach(p => { 
+                $scope.billAmount += (p.price * p.quantity); 
+            }); 
+            $scope.gst = $scope.billAmount * 0.18; 
+            $scope.total = $scope.billAmount + $scope.gst; 
+        }; 
+    }); 
+</script>
